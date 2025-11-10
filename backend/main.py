@@ -1,53 +1,44 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 import os
 
 from .api.posts import router as posts_router
+from . import mock_data
 
 
 app = FastAPI(
     title="Blog API",
-    description="A simple blog website API with mock data",
+    description="A simple blog website",
     version="1.0.0",
 )
 
-# Configure CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# Setup Jinja2 templates
+templates_dir = os.path.join(os.path.dirname(__file__), "templates")
+templates = Jinja2Templates(directory=templates_dir)
 
 # Include API routers
 app.include_router(posts_router)
 
-# Serve static files from frontend dist
-static_dir = os.path.join(os.path.dirname(__file__), "..", "frontend", "dist")
-if os.path.exists(static_dir):
-    # Mount static assets
-    app.mount("/assets", StaticFiles(directory=os.path.join(static_dir, "assets")), name="assets")
 
-    # Catch-all route to serve index.html for all frontend routes
-    # This must be the last route defined
-    @app.get("/{full_path:path}")
-    async def serve_frontend(full_path: str):
-        """Serve frontend for all non-API routes
+# Frontend routes
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    """Home page with all posts"""
+    posts = mock_data.get_all_posts()
+    return templates.TemplateResponse("home.html", {"request": request, "posts": posts})
 
-        This allows the React app to handle routing based on window.location
-        All routes go through the backend and return index.html
-        """
-        # If path starts with api/, this shouldn't be hit (API routes are already defined)
-        if full_path.startswith("api/"):
-            return {"detail": "API endpoint not found"}
 
-        # For all other paths, serve the React app
-        # The React app will read window.location.pathname and render the appropriate page
-        index_path = os.path.join(static_dir, "index.html")
-        if os.path.exists(index_path):
-            return FileResponse(index_path)
+@app.get("/about", response_class=HTMLResponse)
+async def about(request: Request):
+    """About page"""
+    return templates.TemplateResponse("about.html", {"request": request})
 
-        return {"detail": "Frontend not built. Run 'bash build.sh' to build the frontend."}
+
+@app.get("/posts/{post_id}", response_class=HTMLResponse)
+async def post_detail(request: Request, post_id: int):
+    """Post detail page"""
+    post = mock_data.get_post_by_id(post_id)
+    if post is None:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return templates.TemplateResponse("post_detail.html", {"request": request, "post": post})

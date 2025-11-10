@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Blog{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-4xl font-bold text-gray-900">Latest Blog Posts</h1>
+    <p class="mt-2 text-gray-600">Discover our latest articles and updates</p>
+</div>
+
+<div class="grid gap-6">
+    {% for post in posts %}
+    <div class="overflow-hidden rounded-lg bg-white shadow-md transition-shadow hover:shadow-lg">
+        <div class="p-6">
+            <h2 class="text-2xl font-bold text-gray-900">
+                <a href="/posts/{{ post.id }}" class="hover:text-blue-600">{{ post.title }}</a>
+            </h2>
+            <div class="mt-2 flex items-center space-x-4 text-sm text-gray-500">
+                <span>By {{ post.author }}</span>
+                <span>•</span>
+                <span>{{ post.created_at[:10] }}</span>
+            </div>
+            <p class="mt-4 line-clamp-3 text-gray-700">{{ post.content[:200] }}...</p>
+            <div class="mt-4">
+                <a href="/posts/{{ post.id }}" class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
+                    Read more →
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

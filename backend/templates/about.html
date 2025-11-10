@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}About - Blog{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-4xl">
+    <div class="overflow-hidden rounded-lg bg-white shadow-md">
+        <div class="p-8">
+            <h1 class="text-4xl font-bold text-gray-900">About This Blog</h1>
+
+            <div class="mt-6 space-y-6 text-gray-700 leading-relaxed">
+                <p class="text-lg">
+                    A modern full-stack blog application built with React, FastAPI, and Tailwind CSS.
+                </p>
+
+                <h2 class="text-2xl font-semibold text-gray-900 pt-4">Technology Stack</h2>
+
+                <div class="grid gap-6 md:grid-cols-2">
+                    <div class="rounded-lg border border-gray-200 p-5">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Backend</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>FastAPI with Python</li>
+                            <li>In-memory data storage</li>
+                        </ul>
+                    </div>
+
+                    <div class="rounded-lg border border-gray-200 p-5">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Frontend</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>Jinja2 Templates</li>
+                            <li>Tailwind CSS (CDN)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-semibold text-gray-900 pt-4">Features</h2>
+
+                <ul class="space-y-2 ml-6">
+                    <li class="list-disc">Create, read, update, and delete blog posts</li>
+                    <li class="list-disc">Responsive design</li>
+                    <li class="list-disc">RESTful API</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
