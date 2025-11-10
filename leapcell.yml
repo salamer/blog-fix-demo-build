@@ -1,0 +1,4 @@
+context7_used: true
+build_command: "bash build.sh"
+start_command: "bash start.sh"
+port: 8000
