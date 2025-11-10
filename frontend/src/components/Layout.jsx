@@ -15,14 +15,6 @@ export default function Layout({ children }) {
                 About
               </a>
             </div>
-            <div className="flex items-center">
-              <a
-                href="/create"
-                className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-              >
-                New Post
-              </a>
-            </div>
           </div>
         </div>
       </nav>

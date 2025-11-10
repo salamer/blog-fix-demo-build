@@ -45,9 +45,6 @@ mock_posts: List[Dict] = [
     },
 ]
 
-# Counter for new post IDs
-next_id = 6
-
 
 def get_all_posts(skip: int = 0, limit: int = 100) -> List[Dict]:
     """Get all posts with pagination"""
@@ -59,47 +56,6 @@ def get_all_posts(skip: int = 0, limit: int = 100) -> List[Dict]:
 def get_post_by_id(post_id: int) -> Optional[Dict]:
     """Get a single post by ID"""
     for post in mock_posts:
-        if pos["id"] == post_id:
+        if post["id"] == post_id:
             return post
     return None
-
-
-def create_post(title: str, content: str, author: str) -> Dict:
-    """Create a new post"""
-    global next_id
-    new_post = {
-        "id": next_id,
-        "title": title,
-        "content": content,
-        "author": author,
-        "created_at": datetime.now().isoformat(),
-        "updated_at": datetime.now().isoformat(),
-    }
-    mock_posts.append(new_post)
-    next_id += 1
-    return new_post
-
-
-def update_post(post_id: int, title: Optional[str] = None, content: Optional[str] = None, author: Optional[str] = None) -> Optional[Dict]:
-    """Update an existing post"""
-    post = get_post_by_id(post_id)
-    if not post:
-        return None
-
-    if title is not None:
-        post["title"] = title
-    if content is not None:
-        post["content"] = content
-    if author is not None:
-        post["author"] = author
-
-    post["updated_at"] = datetime.now().isoformat()
-    return post
-
-
-def delete_post(post_id: int) -> bool:
-    """Delete a post"""
-    global mock_posts
-    initial_length = len(mock_posts)
-    mock_posts = [post for post in mock_posts if post["id"] != post_id]
-    return len(mock_posts) < initial_length

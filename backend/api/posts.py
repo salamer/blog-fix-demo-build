@@ -1,8 +1,17 @@
 from fastapi import APIRouter, HTTPException
 from typing import List
+from pydantic import BaseModel
 
-from ..schemas import BlogPost, BlogPostCreate, BlogPostUpdate
 from .. import mock_data
+
+class BlogPost(BaseModel):
+    id: int
+    title: str
+    content: str
+    author: str
+    created_at: str
+    updated_at: str
+
 
 router = APIRouter(prefix="/api/posts", tags=["posts"])
 
@@ -21,37 +30,3 @@ async def get_post(post_id: int):
     if post is None:
         raise HTTPException(status_code=404, detail="Post not found")
     return post
-
-
-@router.post("/", response_model=BlogPost, status_code=201)
-async def create_post(post: BlogPostCreate):
-    """Create a new blog post"""
-    new_post = mock_data.create_post(
-        title=post.title,
-        content=post.content,
-        author=post.author
-    )
-    return new_post
-
-
-@router.put("/{post_id}", response_model=BlogPost)
-async def update_post(post_id: int, post: BlogPostUpdate):
-    """Update a blog post"""
-    updated_post = mock_data.update_post(
-        post_id=post_id,
-        title=post.title,
-        content=post.content,
-        author=post.author
-    )
-    if updated_post is None:
-        raise HTTPException(status_code=404, detail="Post not found")
-    return updated_post
-
-
-@router.delete("/{post_id}", status_code=204)
-async def delete_post(post_id: int):
-    """Delete a blog post"""
-    success = mock_data.delete_post(post_id)
-    if not success:
-        raise HTTPException(status_code=404, detail="Post not found")
-    return None

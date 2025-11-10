@@ -22,12 +22,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Health check endpoint (must be before catch-all route)
-@app.get("/api/health")
-async def health_check():
-    """Health check endpoint"""
-    return {"status": "healthy", "mode": "mock_data"}
-
 # Include API routers
 app.include_router(posts_router)
 

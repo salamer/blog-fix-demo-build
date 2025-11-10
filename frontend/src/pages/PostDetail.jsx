@@ -24,26 +24,6 @@ export default function PostDetail({ id }) {
     fetchPost()
   }, [id])
 
-  const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this post?')) {
-      return
-    }
-
-    try {
-      const response = await fetch(`/api/posts/${id}`, {
-        method: 'DELETE',
-      })
-
-      if (response.ok) {
-        window.location.href = '/'
-      } else {
-        throw new Error('Failed to delete post')
-      }
-    } catch (err) {
-      alert('Error deleting post: ' + err.message)
-    }
-  }
-
   if (loading) {
     return (
       <div className="flex justify-center py-12">
@@ -87,21 +67,6 @@ export default function PostDetail({ id }) {
 
           <div className="mt-8 whitespace-pre-wrap text-gray-700 leading-relaxed">
             {post.content}
-          </div>
-
-          <div className="mt-8 flex gap-4 border-t pt-6">
-            <a
-              href={`/edit/${post.id}`}
-              className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-            >
-              Edit Post
-            </a>
-            <button
-              onClick={handleDelete}
-              className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
-            >
-              Delete Post
-            </button>
           </div>
         </div>
       </div>

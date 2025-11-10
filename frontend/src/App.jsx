@@ -3,8 +3,6 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import About from './pages/About'
 import PostDetail from './pages/PostDetail'
-import CreatePost from './pages/CreatePost'
-import EditPost from './pages/EditPost'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -21,15 +19,9 @@ function App() {
       setCurrentPage('home')
     } else if (path === '/about') {
       setCurrentPage('about')
-    } else if (path === '/create') {
-      setCurrentPage('create')
     } else if (path.startsWith('/post/')) {
       const id = path.split('/post/')[1]
       setCurrentPage('post-detail')
-      setParams({ id })
-    } else if (path.startsWith('/edit/')) {
-      const id = path.split('/edit/')[1]
-      setCurrentPage('edit')
       setParams({ id })
     } else {
       setCurrentPage('not-found')
@@ -44,10 +36,6 @@ function App() {
         return <About />
       case 'post-detail':
         return <PostDetail id={params.id} />
-      case 'create':
-        return <CreatePost />
-      case 'edit':
-        return <EditPost id={params.id} />
       case 'not-found':
         return <NotFound />
       default:
