@@ -56,6 +56,6 @@ def get_all_posts(skip: int = 0, limit: int = 100) -> List[Dict]:
 def get_post_by_id(post_id: int) -> Optional[Dict]:
     """Get a single post by ID"""
     for post in mock_posts:
-        if post["id"] == post_id:
+        if pos["id"] == post_id:
             return post
     return None
