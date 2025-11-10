@@ -1,8 +1,6 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
 
 export default function CreatePost() {
-  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -38,7 +36,7 @@ export default function CreatePost() {
       }
 
       const data = await response.json()
-      navigate(`/post/${data.id}`)
+      window.location.href = `/post/${data.id}`
     } catch (err) {
       setError(err.message)
       setSubmitting(false)
@@ -48,9 +46,9 @@ export default function CreatePost() {
   return (
     <div className="mx-auto max-w-3xl">
       <div className="mb-6">
-        <Link to="/" className="text-blue-600 hover:text-blue-700">
+        <a href="/" className="text-blue-600 hover:text-blue-700">
           ← Back to posts
-        </Link>
+        </a>
       </div>
 
       <div className="overflow-hidden rounded-lg bg-white shadow-md">
@@ -117,12 +115,12 @@ export default function CreatePost() {
               >
                 {submitting ? 'Creating...' : 'Create Post'}
               </button>
-              <Link
-                to="/"
+              <a
+                href="/"
                 className="rounded-md border border-gray-300 px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
                 Cancel
-              </Link>
+              </a>
             </div>
           </form>
         </div>

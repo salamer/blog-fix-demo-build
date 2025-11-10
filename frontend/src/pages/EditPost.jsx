@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
 
-export default function EditPost() {
-  const { id } = useParams()
-  const navigate = useNavigate()
+export default function EditPost({ id }) {
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -62,7 +59,7 @@ export default function EditPost() {
         throw new Error('Failed to update post')
       }
 
-      navigate(`/post/${id}`)
+      window.location.href = `/post/${id}`
     } catch (err) {
       setError(err.message)
       setSubmitting(false)
@@ -80,9 +77,9 @@ export default function EditPost() {
   return (
     <div className="mx-auto max-w-3xl">
       <div className="mb-6">
-        <Link to={`/post/${id}`} className="text-blue-600 hover:text-blue-700">
+        <a href={`/post/${id}`} className="text-blue-600 hover:text-blue-700">
           ← Back to post
-        </Link>
+        </a>
       </div>
 
       <div className="overflow-hidden rounded-lg bg-white shadow-md">
@@ -149,12 +146,12 @@ export default function EditPost() {
               >
                 {submitting ? 'Saving...' : 'Save Changes'}
               </button>
-              <Link
-                to={`/post/${id}`}
+              <a
+                href={`/post/${id}`}
                 className="rounded-md border border-gray-300 px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
                 Cancel
-              </Link>
+              </a>
             </div>
           </form>
         </div>

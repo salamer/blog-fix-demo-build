@@ -8,13 +8,15 @@ A full-stack blog website built with FastAPI (Python) backend and React frontend
 - Responsive design with Tailwind CSS
 - In-memory mock data storage
 - RESTful API with FastAPI
-- Modern React frontend with React Router
+- Modern React frontend with server-side routing
 - 5 pre-populated sample blog posts
+- **All routes handled by backend** - traditional page navigation
 
 ## Technology Stack
 
 ### Backend
 - **FastAPI**: Modern Python web framework
+- **Server-Side Routing**: All routes go through the backend
 - **Mock Data**: In-memory storage (no database required)
 - **Uvicorn**: ASGI server
 
@@ -22,7 +24,7 @@ A full-stack blog website built with FastAPI (Python) backend and React frontend
 - **React 19**: UI library
 - **Vite**: Build tool
 - **Tailwind CSS 4**: Utility-first CSS framework
-- **React Router 7**: Client-side routing
+- **Traditional Navigation**: Uses standard anchor tags and full page loads
 
 ## Quick Start
 
@@ -118,12 +120,38 @@ All posts are stored in memory and will reset when the server restarts.
 └── leapcell.yml         # Deployment config
 ```
 
+## Architecture
+
+### Server-Side Routing
+
+This application uses **server-side routing** instead of client-side routing:
+
+- **All routes go through the backend**: Every page request hits the FastAPI server first
+- **Backend serves index.html**: For all non-API routes, the server returns the same `index.html` file
+- **React reads URL**: The React app reads `window.location.pathname` to determine which component to render
+- **Traditional navigation**: Uses standard `<a>` tags, resulting in full page reloads
+- **No React Router**: Eliminates the need for react-router-dom dependency
+
+**Benefits:**
+- Simpler architecture with fewer dependencies
+- Better SEO potential (server-side control)
+- Easier debugging with traditional page loads
+- Server has full control over all routes
+
+**Routes:**
+- `/` - Home page with blog posts
+- `/about` - About page with tech stack info
+- `/create` - Create new post
+- `/post/:id` - View single post
+- `/edit/:id` - Edit existing post
+
 ## Notes
 
 - Data is stored in memory and will be lost on server restart
 - No database setup required
 - Perfect for demos, testing, and learning
 - Can easily be upgraded to use a real database later
+- All navigation causes full page reloads (traditional web app behavior)
 
 ## License
 

@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
 
-export default function PostDetail() {
-  const { id } = useParams()
-  const navigate = useNavigate()
+export default function PostDetail({ id }) {
   const [post, setPost] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -38,7 +35,7 @@ export default function PostDetail() {
       })
 
       if (response.ok) {
-        navigate('/')
+        window.location.href = '/'
       } else {
         throw new Error('Failed to delete post')
       }
@@ -59,9 +56,9 @@ export default function PostDetail() {
     return (
       <div className="rounded-md bg-red-50 p-4">
         <p className="text-sm text-red-800">Error: {error}</p>
-        <Link to="/" className="mt-4 inline-block text-blue-600 hover:text-blue-700">
+        <a href="/" className="mt-4 inline-block text-blue-600 hover:text-blue-700">
           ← Back to home
-        </Link>
+        </a>
       </div>
     )
   }
@@ -77,9 +74,9 @@ export default function PostDetail() {
   return (
     <article className="mx-auto max-w-3xl">
       <div className="mb-6">
-        <Link to="/" className="text-blue-600 hover:text-blue-700">
+        <a href="/" className="text-blue-600 hover:text-blue-700">
           ← Back to posts
-        </Link>
+        </a>
       </div>
 
       <div className="overflow-hidden rounded-lg bg-white shadow-md">
@@ -93,12 +90,12 @@ export default function PostDetail() {
           </div>
 
           <div className="mt-8 flex gap-4 border-t pt-6">
-            <Link
-              to={`/edit/${post.id}`}
+            <a
+              href={`/edit/${post.id}`}
               className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Edit Post
-            </Link>
+            </a>
             <button
               onClick={handleDelete}
               className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
@@ -106,6 +103,26 @@ export default function PostDetail() {
               Delete Post
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* About CTA */}
+      <div className="mt-6 rounded-lg border-2 border-blue-200 bg-blue-50 p-5">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex-1">
+            <p className="text-sm font-medium text-blue-900">
+              Curious about how this blog works?
+            </p>
+            <p className="mt-1 text-xs text-blue-700">
+              Learn about the tech stack, features, and architecture behind this project.
+            </p>
+          </div>
+          <a
+            href="/about"
+            className="shrink-0 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+          >
+            View Tech Details
+          </a>
         </div>
       </div>
     </article>

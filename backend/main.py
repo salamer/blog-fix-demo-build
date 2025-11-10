@@ -22,30 +22,38 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Health check endpoint (must be before catch-all route)
+@app.get("/api/health")
+async def health_check():
+    """Health check endpoint"""
+    return {"status": "healthy", "mode": "mock_data"}
+
 # Include API routers
 app.include_router(posts_router)
 
 # Serve static files from frontend dist
 static_dir = os.path.join(os.path.dirname(__file__), "..", "frontend", "dist")
 if os.path.exists(static_dir):
+    # Mount static assets
     app.mount("/assets", StaticFiles(directory=os.path.join(static_dir, "assets")), name="assets")
 
+    # Catch-all route to serve index.html for all frontend routes
+    # This must be the last route defined
     @app.get("/{full_path:path}")
     async def serve_frontend(full_path: str):
-        """Serve frontend for all non-API routes"""
-        # If path starts with /api, it's handled by API routers
-        if full_path.startswith("api/"):
-            return {"detail": "Not found"}
+        """Serve frontend for all non-API routes
 
-        # Serve index.html for frontend routes
+        This allows the React app to handle routing based on window.location
+        All routes go through the backend and return index.html
+        """
+        # If path starts with api/, this shouldn't be hit (API routes are already defined)
+        if full_path.startswith("api/"):
+            return {"detail": "API endpoint not found"}
+
+        # For all other paths, serve the React app
+        # The React app will read window.location.pathname and render the appropriate page
         index_path = os.path.join(static_dir, "index.html")
         if os.path.exists(index_path):
             return FileResponse(index_path)
 
-        return {"detail": "Frontend not built"}
-
-
-@app.get("/api/health")
-async def health_check():
-    """Health check endpoint"""
-    return {"status": "healthy", "mode": "mock_data"}
+        return {"detail": "Frontend not built. Run 'bash build.sh' to build the frontend."}
