@@ -1,0 +1,5 @@
+context7_used: true
+runtime: "python"
+buildCommand: "bash build.sh"
+startCommand: "bash start.sh"
+port: 8000
