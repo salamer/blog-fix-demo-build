@@ -3,6 +3,24 @@
 {% block title %}Home - Blog{% endblock %}
 
 {% block content %}
+<!-- Call-to-Action Banner for About Page -->
+<div class="mb-8 overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg">
+    <div class="p-6 md:p-8">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="text-white mb-4 md:mb-0">
+                <h2 class="text-2xl md:text-3xl font-bold mb-2">Built with Modern Technology</h2>
+                <p class="text-blue-50 text-lg">Discover the powerful tech stack behind this blog</p>
+            </div>
+            <a href="/about" class="inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow-md hover:bg-gray-50 hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+                Learn More
+                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+
 <div class="mb-8">
     <h1 class="text-4xl font-bold text-gray-900">Latest Blog Posts</h1>
     <p class="mt-2 text-gray-600">Discover our latest articles and updates</p>
