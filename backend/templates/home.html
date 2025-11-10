@@ -4,16 +4,51 @@
 
 {% block content %}
 <!-- Call-to-Action Banner for About Page -->
-<div class="mb-8 overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg">
-    <div class="p-6 md:p-8">
-        <div class="flex flex-col md:flex-row items-center justify-between">
-            <div class="text-white mb-4 md:mb-0">
+<div class="mb-8 overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg relative">
+    <!-- Animated background pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px);"></div>
+    </div>
+
+    <div class="p-6 md:p-8 relative">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-white flex-1">
+                <div class="flex items-center mb-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white backdrop-blur-sm animate-pulse">
+                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+                        </svg>
+                        Powered by Modern Stack
+                    </span>
+                </div>
                 <h2 class="text-2xl md:text-3xl font-bold mb-2">Built with Modern Technology</h2>
-                <p class="text-blue-50 text-lg">Discover the powerful tech stack behind this blog</p>
+                <p class="text-blue-50 text-lg mb-4 md:mb-0">FastAPI · Python · Tailwind CSS · Jinja2</p>
+                <div class="flex items-center space-x-3 mt-3">
+                    <!-- Tech Stack Icons -->
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center animate-bounce" style="animation-delay: 0s; animation-duration: 2s;">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center animate-bounce" style="animation-delay: 0.2s; animation-duration: 2s;">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z"></path>
+                                <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z"></path>
+                                <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z"></path>
+                            </svg>
+                        </div>
+                        <div class="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center animate-bounce" style="animation-delay: 0.4s; animation-duration: 2s;">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <a href="/about" class="inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow-md hover:bg-gray-50 hover:shadow-xl transition-all duration-200 transform hover:scale-105">
-                Learn More
-                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <a href="/about" class="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-bold rounded-lg shadow-xl hover:bg-gray-50 hover:shadow-2xl transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 text-lg">
+                Explore Tech Stack
+                <svg class="ml-2 w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                 </svg>
             </a>
